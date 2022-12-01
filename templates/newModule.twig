@@ -217,14 +217,14 @@
 							<div class="form-check">
 								<input class="form-check-input" type="checkbox" id="includeLicense" name="includeLicense">
 							</div>
-							<span class="text-muted">If selected, a file named LICENSE with the text below will be added to the template .zip archive</span>
+							<span class="text-muted">If selected, a file named LICENSE with the text below (MIT License) will be added to the module</span>
 						</div>
 					</div>
 				</fieldset>
 				<div class="form-group row">
 					<label for="licenseText" class="col-sm-2 col-form-label">Description</label>
 					<div class="col-sm-10">
-						<textarea id="licenseText" name="licenseText" class="form-control" rows="9">Copyright (c) <{{ Year }}> {{ OrgName }}
+						<textarea id="licenseText" name="licenseText" class="form-control" style="font-size: 10px;" rows="9">Copyright (c) <YEAR> <INSTITUTION>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -273,14 +273,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         <div class="form-group row">
                                 <label for="gitOrg" class="col-sm-2 col-form-label">Github Org/User <span style='color:#C00000'>*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" id="gitOrg" name="gitOrg" class="form-control" placeholder="susom" required></input>
+                                    <input type="text" id="gitOrg" name="gitOrg" class="form-control" placeholder="susom"></input>
                                     <span class="text-muted">This corresponds to git@github.com:<b>susom</b>/my-module.git</span>
                                 </div>
                         </div>
                         <div class="form-group row">
                                 <label for="gitRepo" class="col-sm-2 col-form-label">Github Repo Name <span style='color:#C00000'>*</span></label>
                                 <div class="col-sm-10">
-                                    <input type="text" id="gitRepo" name="gitRepo" class="form-control" placeholder="my_module" required></input>
+                                    <input type="text" id="gitRepo" name="gitRepo" class="form-control" placeholder="my_module"></input>
                                     <span class="text-muted">This corresponds to git@github.com:susom/<b>my_module</b>.git</span>
                                 </div>
                         </div>
@@ -300,25 +300,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 </fieldset>
             </div>
         </div>
-
-        <div class="mx-3 mb-3 p-2 card">
-
-            <div class="card-body">
-                <pre class="pre-scrollable">
-# copy zip to your modules folder, unzip, open terminal and cd into folder
-
-git init .
-git remote add origin git@github.com:{{ git_org_or_name }}/{{ repo_name }}.git
-git push --set-upstream origin main
-</pre>
-            </div>
-        </div>
-
 		<div class="row p-5 justify-content-center">
 			<!-- <input type='hidden' name="generate" value="1"></input> -->
 			<button class="btn btn-primary" type="submit" method="post">Generate External Module Template</button>
 		</div>
-
+        <input type="hidden" name="redcap_csrf_token" value="{{ redcap_csrf_token }}"></input>
 	</form>
 </div>
 <script>
