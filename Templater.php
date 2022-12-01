@@ -2,7 +2,11 @@
 
 namespace RedcapConHack\Templater;
 
-class Templater extends \ExternalModules\AbstractExternalModule
+use ExternalModules\AbstractExternalModule;
+use PluginDocs;
+use ZipArchive;
+
+class Templater extends AbstractExternalModule
 {
 
     const DEFAULT_FRAMEWORK_VERSION = 10;
@@ -126,9 +130,9 @@ class Templater extends \ExternalModules\AbstractExternalModule
         $readmeFile = $twig->render('README.twig', $data);
 
         # create zip file, open it, add files, close zip, and send
-        $zip = new \ZipArchive();
+        $zip = new ZipArchive();
         $file = tempnam(EDOC_PATH, "");
-        $zip->open($file, \ZipArchive::CREATE);
+        $zip->open($file, ZipArchive::CREATE);
         $zip->addFromString($data['className'] . '.php', $classFile);
         $zip->addFromString('config.json', $configFile);
         $zip->addFromString('README.md', $readmeFile);
@@ -183,7 +187,7 @@ class Templater extends \ExternalModules\AbstractExternalModule
     public static function getHookInfo()
     {
         # Get array of Hook methods and their attributes
-        $temp = \PluginDocs::getPluginMethods(\PluginDocs::HOOKS_CLASS);
+        $temp = PluginDocs::getPluginMethods(PluginDocs::HOOKS_CLASS);
         $hooks = [
             "redcap" => [],
             "exmod" => [

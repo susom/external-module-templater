@@ -1,8 +1,9 @@
-# external_module_templater
+# External Module Templater
 
-Builds out external module template files for quick module generation
+This EM provides a control-center link for the creation of new EM templates.  The goal is to be able to quickly prop up
+a skeleton structure for making a new External Module
 
-Instructions:
+## Instructions:
 1. Download the repository and extract so the "external_module_templater_vx.x" folder is in the redcap/modules folder of your web server.
 2. This module uses composer -- if you use an official release, you should be fine.  However, if you download from source, you will have to enter the external module directory and execute `composer install` to add the required libraries.
 3. In Control Center > External Modules, enable "External Module Templater - vx.x"
@@ -13,3 +14,4 @@ Instructions:
 	* a PHP class/module file
 	* a README.md file
 	* a config.json file
+

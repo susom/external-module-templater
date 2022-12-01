@@ -7,7 +7,7 @@
 
 	"documentation": "README.md",
 
-    "framework_version": "11",
+    "framework-version": 11,
 
 	"authors": [
 		{
@@ -35,7 +35,7 @@
 		"control-center": [
 			{
 				"name": "Generate External Module Template",
-				"icon": "fa-solid fa-clone",
+				"icon": "fas fa-clone",
 				"url": "generate_template.php"
 			}
 		]

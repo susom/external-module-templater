@@ -1,13 +1,18 @@
 <?php
 
 namespace RedcapConHack\Templater;
+use ExternalModules\ExternalModules;
+use Twig\Extension\StringLoaderExtension;
+use Twig_Environment;
+use Twig_Loader_Filesystem;
+
 /** @var Templater $module */
 
 require_once(__DIR__ . "/vendor/autoload.php");
 
-$loader = new \Twig_Loader_Filesystem(__DIR__ . "/templates/");
-$twig = new \Twig_Environment($loader);
-$twig->addExtension(new \Twig\Extension\StringLoaderExtension());
+$loader = new Twig_Loader_Filesystem(__DIR__ . "/templates/");
+$twig = new Twig_Environment($loader);
+$twig->addExtension(new StringLoaderExtension());
 
 if ($_POST) {
     $user_cache=[];
@@ -34,7 +39,7 @@ if ($_POST) {
         "css_link2" => APP_PATH_CSS . "bootstrap.min.css",
         "hooks" => $module::getHookInfo(),
         "default_module_version" => $module::DEFAULT_MODULE_VERSION,
-        "default_framework_version" => \ExternalModules\ExternalModules::getMaxSupportedFrameworkVersion(),  // $module::DEFAULT_FRAMEWORK_VERSION,
+        "default_framework_version" => ExternalModules::getMaxSupportedFrameworkVersion(),  // $module::DEFAULT_FRAMEWORK_VERSION,
         "framework_doc_url" => APP_PATH_WEBROOT . "Plugins/index.php?page=ext_mods_docs/framework/intro.md",
         "user_cache" => json_encode($module->getUserSetting('defaults'))
     ];
