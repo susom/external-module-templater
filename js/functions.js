@@ -173,6 +173,14 @@ $(function () {
 
     $('form').on('submit', function (e) {
         console.log("Form Submit", e);
+
+        $('#gitOrg').removeClass('invalid');
+        $('#gitRepo').removeClass('invalid');
+        if ($('#includeGitInit').is(":checked")) {
+            if($('#gitOrg').val() == "") $('#gitOrg').addClass('invalid');
+            if($('#gitRepo').val() == "") $('#gitRepo').addClass('invalid');
+        }
+
         let invalidInputs = $('.invalid')
         if (invalidInputs.length != 0) {
             invalidInputs.first().focus()
