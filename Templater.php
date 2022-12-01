@@ -23,7 +23,7 @@ class Templater extends AbstractExternalModule
             'namespace' => $_POST['namespace'],
             'description' => $_POST['moduleDescription'],
             'dirName' => $_POST['dirName'],
-            'OrgName' => $_POST['orgName'],
+            'orgName' => $_POST['orgName'],
             'frameworkVersion' => $_POST['frameworkVersion'] ?: $this::DEFAULT_FRAMEWORK_VERSION,
             'authors' => [],
             'controlCenterLinks' => [],
@@ -77,13 +77,19 @@ class Templater extends AbstractExternalModule
         # links
         $done = false;
         $i = 1;
+        $link_pages = [];
+        $link_regex = '/(^[a-z].*\.php)(\?.*)?$/i';
         while (!$done) {
             if (isset($_POST["linksName$i"])) {
                 # add link to twig $data variable
+                $name = $_POST["linksName$i"];
+                $url = $_POST["linksUrl$i"];
+                $icon = $_POST["linksIcon$i"];
+
                 $link = [
-                    'name' => $_POST["linksName$i"],
-                    'url' => $_POST["linksUrl$i"],
-                    'icon' => $_POST["linksIcon$i"]
+                    'name' => $name,
+                    'url' => $url,
+                    'icon' => $icon
                 ];
                 if (isset($_POST["linksNOAUTH$i"])) {
                     $link['NOAUTH'] = true;
@@ -94,6 +100,11 @@ class Templater extends AbstractExternalModule
                 if (isset($_POST["linksProjectCheckbox$i"])) {
                     array_push($data['projectLinks'], $link);
                 }
+
+                # Try to detect if the url is a local php page so we can add it to the zip file later
+                # https://regex101.com/r/qqAui7/1
+                preg_match($link_regex, $url, $matches);
+                if (!empty($matches[1])) $link_pages[] = $matches[1];
             } else {
                 $done = true;
             }
@@ -137,18 +148,15 @@ class Templater extends AbstractExternalModule
         $zip->addFromString('config.json', $configFile);
         $zip->addFromString('README.md', $readmeFile);
 
-        # add method files for links and crons? (e.g., generate_template.php)
-        foreach ($data["projectLinks"] as $thisLink) {
-            $zip->addFromString($thisLink["url"], "<?php\nnamespace " . $data["namespace"] . ";\n/** @var \$module " . $data["className"] . " */\n");
-        }
-
-        foreach ($data["controlCenterLinks"] as $thisLink) {
-            $zip->addFromString($thisLink["url"], "<?php\nnamespace " . $data["namespace"] . ";\n/** @var \$module " . $data["className"] . " */\n");
+        # add method files for local links that are php files -- for non-php files it is up to you...
+        foreach ($link_pages as $link_page) {
+            $zip->addFromString($link_page, $twig->render('linkPage.twig', $data));
         }
 
         # add LICENSE?
         if (isset($_POST['includeLicense']) and isset($_POST['licenseText'])) {
             $licenseText = htmlspecialchars($_POST['licenseText'], ENT_QUOTES);
+            $licenseText = str_replace(['<YEAR>', '<INSTITUTION>'], [ "{{ Year }}", "{{ orgName }}"], $licenseText);
             $twigTemplate = twig_template_from_string($twig, $licenseText);
             $license = $twigTemplate->render($data);
             $zip->addFromString('LICENSE', $license);

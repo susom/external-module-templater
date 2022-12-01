@@ -41,7 +41,8 @@ if ($_POST) {
         "default_module_version" => $module::DEFAULT_MODULE_VERSION,
         "default_framework_version" => ExternalModules::getMaxSupportedFrameworkVersion(),  // $module::DEFAULT_FRAMEWORK_VERSION,
         "framework_doc_url" => APP_PATH_WEBROOT . "Plugins/index.php?page=ext_mods_docs/framework/intro.md",
-        "user_cache" => json_encode($module->getUserSetting('defaults'))
+        "user_cache" => json_encode($module->getUserSetting('defaults')),
+        "redcap_csrf_token" => $module->getCSRFToken()
     ];
 
     ## Checking if on newer version of REDCap that uses webpack for jquery and bootstrap
