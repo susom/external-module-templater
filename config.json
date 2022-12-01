@@ -20,12 +20,12 @@
 			"email": "datacore@vumc.org",
 			"institution": "Vanderbilt University Medical Center"
 		},
-        {
-            "name": "Andrew Martin",
-            "email": "andy123@stanford.edu",
-            "institution": "Stanford Medicine"
-        }
-    ],
+		{
+			"name": "Andy Martin",
+			"email": "andy123@stanford.edu",
+			"institution": "Stanford University"
+		}
+	],
 
 	"permissions": [
 		""

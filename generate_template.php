@@ -47,3 +47,6 @@ if ($_POST) {
     }
     echo $twig->render("newModule.twig", $templateConstants);
 }
+
+// Prevent js errors about missing variables
+renderJsVars();
