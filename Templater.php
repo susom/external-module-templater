@@ -27,6 +27,8 @@ class Templater extends AbstractExternalModule
             'frameworkVersion' => $_POST['frameworkVersion'] ?: $this::DEFAULT_FRAMEWORK_VERSION,
             'authors' => [],
             'controlCenterLinks' => [],
+            'includeJSMO' => isset($_POST['includeJSMO']) && $_POST['includeJSMO'] == 'on',
+            'includeJSMOajax' => isset($_POST['includeJSMOajax']) && $_POST['includeJSMOajax'] == 'on',
             'crons' => [],
             'hooks' => [],
             'projectLinks' => [],
@@ -136,7 +138,7 @@ class Templater extends AbstractExternalModule
         // exit;
 
         # render necessary files
-        $classFile = $twig->render('class.twig', $data);
+        $classFile  = $twig->render('class.twig', $data);
         $configFile = $twig->render('config.twig', $data);
         $readmeFile = $twig->render('README.twig', $data);
 
@@ -151,6 +153,11 @@ class Templater extends AbstractExternalModule
         # add method files for local links that are php files -- for non-php files it is up to you...
         foreach ($link_pages as $link_page) {
             $zip->addFromString($link_page, $twig->render('linkPage.twig', $data));
+        }
+
+        # JSMO
+        if ($data['includeJSMO']) {
+            $zip->addFromString('assets/jsmo.js', $twig->render('jsmo.js.twig', $data));
         }
 
         # add LICENSE?
