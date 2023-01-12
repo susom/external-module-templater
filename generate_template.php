@@ -26,8 +26,8 @@ if ($_POST) {
     ?>
 
     <script>
-        var timezone = "<?php echo date_default_timezone_get(); ?>";
-        var timestamp = "<?php echo date("Y-m-d H:i:s"); ?>";
+        const timezone = "<?php echo date_default_timezone_get(); ?>";
+        const timestamp = "<?php echo date("Y-m-d H:i:s"); ?>";
     </script>
 
     <?php

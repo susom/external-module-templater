@@ -192,6 +192,7 @@
 			<div id="linksCardBody" class="card-body"></div>
 		</div>
 
+
 		<!-- crons -->
 		<h5 class="text-center">Crons</h5>
 		<div class="row pb-4 align-items-center">
@@ -206,7 +207,36 @@
 			<div id="cronsCardBody" class="card-body"></div>
 		</div>
 
-		<!-- License -->
+
+        <!-- jsmo	-->
+        <h5 class="text-center">Javascript Module Object (JSMO)</h5>
+        <div class="mx-3 mb-3 p-2 card">
+            <div class="card-body">
+                <fieldset class="form-group">
+                    <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Include Javascript Module?</legend>
+                        <div class="col-sm-10 d-flex">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="includeJSMO" name="includeJSMO">
+                            </div>
+                            <span class="text-muted">If selected, a skeleton method for injecting a javascript object will be added to the external module, along with a js file for extending the default JSMO class</span>
+                        </div>
+                    </div>
+                    <div class="row" id="jsmoOptions">
+                        <legend class="col-form-label col-sm-2 pt-0">Include AJAX?</legend>
+                        <div class="col-sm-10 d-flex">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="includeJSMOajax" name="includeJSMOajax">
+                            </div>
+                            <span class="text-muted">If selected, an example AJAX XHR request will be added to the JSMO and a server-side handler method will be created in the External Module to receive a test action.  Please review the <code>config.json</code> to ensure any action methods are appropriately added to the <code>ajax-actions</code> keys.</span>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+
+
+        <!-- License -->
 		<h5 class="text-center">License</h5>
 		<div class="mx-3 mb-3 p-2 card">
 			<div class="card-body">

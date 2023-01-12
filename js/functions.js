@@ -142,6 +142,22 @@ $(function () {
         }
     );
 
+    // Handle JSMO Options
+    $('#jsmoOptions').hide();
+    $('#includeJSMO').on(
+        {
+            click: function () {
+                if ($(this).is(':checked')) {
+                    $('#jsmoOptions').show();
+                } else {
+                    $('#includeJSMOajax').prop("checked", false);
+                    $('#jsmoOptions').hide();
+                }
+            }
+        }
+    );
+
+
     $('form').on('change', "[name*='cronsRepetition'][value='timed']", function (e) {
         var id = $(this).prop('id');
         var n = id.replace(/^[A-Za-z]+/, "");

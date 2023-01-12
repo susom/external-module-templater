@@ -1,102 +1,114 @@
 {
-	"name": "{{ moduleName }}",
+    "name": "{{ moduleName }}",
 
-	"namespace": "{{ namespace|replace({"\\": "\\\\"}) }}",
+    "namespace": "{{ namespace|replace({"\\": "\\\\"}) }}",
 
-	"description": "{{ description }}",
+    "description": "{{ description }}",
 
-	"documentation": "README.md",
+    "documentation": "README.md",
 
-	"framework-version": {{ frameworkVersion }},
+    "framework-version": {{ frameworkVersion }},
 
-	"authors": [
+    "authors": [
 {% for author in authors %}
-		{
-			"name": "{{ author.name }}",
-			"email": "{{ author.email }}",
-			"institution": "{{ author.org }}"
-		}{% if (authors|last)!=author %},
+        {
+            "name": "{{ author.name }}",
+            "email": "{{ author.email }}",
+            "institution": "{{ author.org }}"
+        }{% if (authors|last)!=author %},
 {% endif %}
 {% endfor %}
 
-	],
+    ],
 
-	"permissions": [
+    "permissions": [
 {% for hook in hooks %}
-		"{{ hook.name }}"{% if (hooks|last)!=hook %},
+        "{{ hook.name }}"{% if (hooks|last)!=hook %},
 {% endif %}
 {% endfor %}
 
-	],
-	
-	"enable-every-page-hooks-on-system-pages": {% if everyPageHooks %}true,{% else %}false,{% endif %}
-	
+    ],
 
-	"links": {
-		"project": [
+    "enable-every-page-hooks-on-system-pages": {% if everyPageHooks %}true,{% else %}false,{% endif %}
+
+{% if includeJSMOajax %}
+
+    "enable-ajax-logging": false,
+
+    "auth-ajax-actions": [
+        "TestAction"
+    ],
+
+    "no-auth-ajax-actions": [
+        "TestAction"
+    ],
+
+{% endif %}
+    "links": {
+        "project": [
 {% for link in projectLinks %}
-			{
-				"name": "{{ link.name }}",
-				"icon": "{{ link.icon }}",
-				"url": "{{ link.url }}{% if link.NOAUTH %}?NOAUTH{% endif %}"
-			}{% if (projectLinks|last)!=link %},
+            {
+                "name": "{{ link.name }}",
+                "icon": "{{ link.icon }}",
+                "url": "{{ link.url }}{% if link.NOAUTH %}?NOAUTH{% endif %}"
+            }{% if (projectLinks|last)!=link %},
 {% endif %}
 {% endfor %}
 
-		],
-		"control-center": [
+        ],
+        "control-center": [
 {% for link in controlCenterLinks %}
-			{
-				"name": "{{ link.name }}",
-				"icon": "{{ link.icon }}",
-				"url": "{{ link.url }}{% if link.NOAUTH %}?NOAUTH{% endif %}"
-			}{% if (controlCenterLinks|last)!=link %},
+            {
+                "name": "{{ link.name }}",
+                "icon": "{{ link.icon }}",
+                "url": "{{ link.url }}{% if link.NOAUTH %}?NOAUTH{% endif %}"
+            }{% if (controlCenterLinks|last)!=link %},
 {% endif %}
 {% endfor %}
 
-		]
-	},
+        ]
+    },
 
-	"no-auth-pages": [
+    "no-auth-pages": [
 {% for link in projectLinks %}
 {% if link.NOAUTH %}
-		"{{ link.url|split('.')[0] }}"{% if ((projectLinks|last)!=link) or (controlCenterLinks|length > 0) %},
+        "{{ link.url|split('.')[0] }}"{% if ((projectLinks|last)!=link) or (controlCenterLinks|length > 0) %},
 {% endif %}{% endif %}
 {% endfor %}
 {% for link in controlCenterLinks %}
 {% if link.NOAUTH %}
-		"{{ link.url|split('.')[0] }}"{% if (controlCenterLinks|last)!=link %},
+        "{{ link.url|split('.')[0] }}"{% if (controlCenterLinks|last)!=link %},
 {% endif %}{% endif %}
 {% endfor %}
 
-	],
+    ],
 
-	"project-settings": [
+    "project-settings": [
 
-	],
+    ],
 
-	"system-settings": [
+    "system-settings": [
 
-	],
+    ],
 
-	"crons": [
+    "crons": [
 {% for cron in crons %}
-		{
-			"cron_name": "{{ cron.name }}",
-			"cron_description": "{{ cron.desc }}",
-			"method": "{{ cron.method }}",
-			"cron_frequency": "{{ cron.freq }}",
-			"cron_max_run_time": "{{ cron.max }}"
-		}{% if (crons|last)!=cron %},{% endif %}
+        {
+            "cron_name": "{{ cron.name }}",
+            "cron_description": "{{ cron.desc }}",
+            "method": "{{ cron.method }}",
+            "cron_frequency": "{{ cron.freq }}",
+            "cron_max_run_time": "{{ cron.max }}"
+        }{% if (crons|last)!=cron %},{% endif %}
 
 {% endfor %}
 
-	],
+    ],
 
-	"compatibility": {
-		"php-version-min": "",
-		"php-version-max": "",
-		"redcap-version-min": "",
-		"redcap-version-max": ""
-	}
+    "compatibility": {
+        "php-version-min": "",
+        "php-version-max": "",
+        "redcap-version-min": "",
+        "redcap-version-max": ""
+    }
 }
