@@ -16,8 +16,20 @@ then
     git add .
     git commit -m 'initial template'
     gh repo create {{ gitOrg }}/{{ gitRepo }} --public --source=. --push
+{% if gitTeam %}
+    # grant team admin access to repo
+    gh api --method PUT -H "Accept: application/vnd.github+json" /orgs/{{ gitOrg }}/teams/{{ gitTeam }}/repos/{{ gitOrg }}/{{ gitRepo }} -f permission='admin'
+    echo "Team {{ gitOrg }}/{{ gitTeam }} has been granted admin permission to {{ getRepo }}"
+{% endif %}
     echo
-    echo "Opening the repo so you can set/review permissions: https://github.com/{{ gitOrg }}/{{ gitRepo }}"
+    echo "You can view the repo and review settings at https://github.com/{{ gitOrg }}/{{ gitRepo }}"
+    echo
+fi
+
+read -p "Would you like to open the repo in your browser (y/n)? " -n 1 -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    echo
     python3 -m webbrowser https://github.com/{{ gitOrg }}/{{ gitRepo }}
 fi
 
