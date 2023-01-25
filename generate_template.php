@@ -17,9 +17,9 @@ $twig->addExtension(new StringLoaderExtension());
 if ($_POST) {
     $user_cache=[];
     foreach ($_POST as $k => $v) {
-        if ($k == "orgName" || $k == "gitOrg" || left($k,7) == "include" || left($k,7) == "authors") $user_cache[$k] = $v;
+        if ($k == "orgName" || $k == "gitOrg" || $k == "gitTeam" || left($k,7) == "include" || left($k,7) == "authors") $user_cache[$k] = $v;
     }
-    file_put_contents('/var/log/redcap/dump.json', json_encode($user_cache));
+    // file_put_contents('/var/log/redcap/dump.json', json_encode($user_cache));
     $module->setUserSetting('defaults', $user_cache);
     $module->generateTemplateFromPost($twig);
 } else {

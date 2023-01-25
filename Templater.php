@@ -35,6 +35,7 @@ class Templater extends AbstractExternalModule
             'includeGitInit' => isset($_POST['includeGitInit']) && $_POST['includeGitInit'] == 'on',
             'gitOrg' => $_POST['gitOrg'],
             'gitRepo' => $_POST['gitRepo'],
+            'gitTeam' => $_POST['gitTeam'],
             'includeGitIgnore' => isset($_POST['includeGitIgnore']) && $_POST['includeGitIgnore'] == 'on',
             'includeEditorConfig' => isset($_POST['includeEditorConfig']) && $_POST['includeEditorConfig'] == 'on',
             'Year' => date('Y')

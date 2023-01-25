@@ -31,6 +31,15 @@
 		""
 	],
 
+    "system-settings": [
+        {
+            "key": "custom-git-init",
+            "name": "<b>Custom git-init commands</b><br>(optional) If specified, these commands will be added to the gitInit script.<br>For example, to add the repo to a team: <code>gh api --method PUT -H \"Accept: application/vnd.github+json\" /orgs/susom/teams/redcap-internal-team/repos/susom/data_toolkit -f permission='admin'</code>",
+            "required": false,
+            "type": "note"
+        }
+    ],
+
 	"links": {
 		"control-center": [
 			{
