@@ -9,7 +9,7 @@ use ZipArchive;
 class Templater extends AbstractExternalModule
 {
 
-    const DEFAULT_FRAMEWORK_VERSION = 10;
+    const DEFAULT_FRAMEWORK_VERSION = 11;
     const DEFAULT_MODULE_VERSION = "0.0.0";
 
     function generateTemplateFromPost($twig)

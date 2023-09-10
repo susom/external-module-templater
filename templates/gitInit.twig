@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 
-# This script assumes you have installed the offical github cli tool `gh`
-# For instructions, please see: https://cli.github.com/manual/installation
+set -e
 
-echo "This script will initialize this folder as a new git repository, check in all of the"
-echo "files, create a new repository as github.com/{{ gitRepo }}/{{ gitOrg }}, and do the"
-echo "initial push of files"
+# Check for GH client
+if ! command -v gh &> /dev/null
+then
+    echo "This script requires you to have installed the official github cli tool 'gh'"
+    echo "For instructions, please visit: https://cli.github.com/manual/installation"
+    exit
+fi
+
+echo "This script will:"
+echo " => Initialize this folder as a git repo"
+echo " => Add and commit the starting files"
+echo " => Create a new repository in github as github.com/{{ gitRepo }}/{{ gitOrg }}"
+echo " => Grant permissions (if specified)"
+echo " => Tag the repository with redcap and redcap-external-modules"
 echo
 read -p "Are you sure you would like to continue (y/n)? " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
@@ -19,8 +29,11 @@ then
 {% if gitTeam %}
     # grant team admin access to repo
     gh api --method PUT -H "Accept: application/vnd.github+json" /orgs/{{ gitOrg }}/teams/{{ gitTeam }}/repos/{{ gitOrg }}/{{ gitRepo }} -f permission='admin'
-    echo "Team {{ gitOrg }}/{{ gitTeam }} has been granted admin permission to {{ getRepo }}"
+    echo "Team {{ gitOrg }}/{{ gitTeam }} has been granted admin permission to {{ gitRepo }}"
 {% endif %}
+    gh repo edit {{ gitOrg }}/{{ gitRepo }} --add-topic redcap redcap-external-module
+    echo "Your repo has been tagged with topics redcap and redcap-external-module.  Should you submit"
+    echo "this module to the REDCap Repository in the future, please add the topic redcap-repo".
     echo
     echo "You can view the repo and review settings at https://github.com/{{ gitOrg }}/{{ gitRepo }}"
     echo

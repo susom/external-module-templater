@@ -7,7 +7,7 @@
 
 	"documentation": "README.md",
 
-    "framework-version": 11,
+    "framework-version": 10,
 
 	"authors": [
 		{
@@ -25,10 +25,6 @@
 			"email": "andy123@stanford.edu",
 			"institution": "Stanford University"
 		}
-	],
-
-	"permissions": [
-		""
 	],
 
     "system-settings": [
