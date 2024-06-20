@@ -20,7 +20,7 @@
 {% endfor %}
 
     ],
-
+{% if frameworkVersion < 12 %}
     "permissions": [
 {% for hook in hooks %}
         "{{ hook.name }}"{% if (hooks|last)!=hook %},
@@ -28,7 +28,7 @@
 {% endfor %}
 
     ],
-
+{% endif %}
     "enable-every-page-hooks-on-system-pages": {% if everyPageHooks %}true,{% else %}false,{% endif %}
 
 {% if includeJSMOajax %}
