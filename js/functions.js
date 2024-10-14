@@ -193,8 +193,8 @@ $(function () {
         $('#gitOrg').removeClass('invalid');
         $('#gitRepo').removeClass('invalid');
         if ($('#includeGitInit').is(":checked")) {
-            if($('#gitOrg').val() == "") $('#gitOrg').addClass('invalid');
-            if($('#gitRepo').val() == "") $('#gitRepo').addClass('invalid');
+            if ($('#gitOrg').val() == "") $('#gitOrg').addClass('invalid');
+            if ($('#gitRepo').val() == "") $('#gitRepo').addClass('invalid');
         }
 
         let invalidInputs = $('.invalid')
@@ -412,11 +412,11 @@ var ExternalModuleTemplater = {
     },
 
     // for decoding contents of a variable
-    decodeEntities: function(str) {
+    decodeEntities: function (str) {
         // this prevents any overhead from creating the object each time
         var element = document.createElement('div');
 
-        if(str && typeof str === 'string') {
+        if (str && typeof str === 'string') {
             // strip script/html tags
             str = str.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
             str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
@@ -429,14 +429,16 @@ var ExternalModuleTemplater = {
     },
 
     // Apply cached info from the last time this user ran the module
-    applyUserCache: function() {
+    applyUserCache: function () {
         console.log(this.user_cache);
-        Object.entries(this.user_cache).forEach(([key, value]) => {
-            let q = 'input[name="' + key + '"]';
-            if ($(q)) {
-                $(q).val(value);
-            }
-        });
+        if (this.user_cache !== undefined && this.user_cache !== null) {
+            Object.entries(this.user_cache).forEach(([key, value]) => {
+                let q = 'input[name="' + key + '"]';
+                if ($(q)) {
+                    $(q).val(value);
+                }
+            });
+        }
     },
 
     // for testing/dev:
